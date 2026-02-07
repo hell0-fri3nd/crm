@@ -1,12 +1,13 @@
-"use client";  
+"use client";
 
 import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import Section from "@/features/home/components/section";
 import cardData from "@/features/home/types/cards-data";
 import Cards from "@/features/home/components/cards";
 import Header from "@/features/home/components/header";
+import Footer from "@/features/footer/components/footer";
 
 export default function Home() {
 
@@ -75,7 +76,8 @@ export default function Home() {
         </div>
 
       </Section>
-  
+
+      <Footer />
     </div>
   );
 }
