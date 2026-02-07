@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/lib/auth-context";
-import { TanStackQueryProvider } from "@/lib/query-client";
 import Footer from "@/features/footer/components/footer";
 
 const geistSans = Geist({
@@ -30,10 +28,8 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TanStackQueryProvider>
-          <AuthProvider>{children}</AuthProvider>
-          <Footer />
-        </TanStackQueryProvider>
+        {children}
+        <Footer />
       </body>
     </html>
   );

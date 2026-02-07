@@ -1,63 +1,81 @@
-"use client"
+"use client";  
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { useAuth } from "@/lib/auth-context"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import AuthLayout from "@/features/auth/components/auth-layout"
-import AuthInput from "@/features/auth/components/auth-input"
+import Link from "next/link";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { useRouter } from 'next/navigation';
+import Section from "@/features/home/components/section";
+import cardData from "@/features/home/types/cards-data";
+import Cards from "@/features/home/components/cards";
+import Header from "@/features/home/components/header";
 
-export default function LoginPage() {
-  const router = useRouter()
-  const { login } = useAuth()
-  const [user, setUser] = useState({
-    email: '',
-    password: ''
-  });
+export default function Home() {
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!email.trim()) return
-    login(email.trim(), name.trim() || undefined)
-    router.push("/crm")
-    router.refresh()
-  }
+  const router = useRouter();
 
   return (
+    <div className="bg-background">
 
-    <AuthLayout title = "Customer Relationship Management" description="A simple CRM module for managing deals, associating contacts, and capturing notes.">
+      <Header title="CRM">
 
-      <form className="flex flex-col gap-6 w-full max-w-full"  onSubmit={handleSubmit}>
+        <a href="#about"
+        className="hidden text-sm font-medium text-muted-foreground 
+        hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 
+        focus-visible:ring-ring focus-visible:ring-offset-2 rounded-md px-3 py-2 sm:inline-flex">
+          About
+        </a>
+        
+        <Link href="/auth"
+        className={buttonVariants({ variant: "ghost", size: "sm" })}>
+          Log in
+        </Link>
+        
+        <Link href="/auth/signup"
+        className={buttonVariants({ size: "sm" })}>
+          Sign up
+        </Link>
 
-        <div className="grid gap-6  w-full">
+      </Header>
 
-          <AuthInput 
-          label="Email" 
-          type="email" 
-          placeholder="you@company"
-          value={user.email} 
-          onChange={(e) => setUser({ ...user, email: e.target.value })} 
-          required/>
+      <Section header="Manage deals, contacts, and notes in one place" 
+      description="A simple CRM to keep your pipeline clear, your contacts organized,and your follow-ups on track. Get started in seconds">
 
-          <AuthInput 
-          label="Password" 
-          type="password" 
-          placeholder="You Company" 
-          value={user.password}
-          onChange={(e) => setUser({ ...user, password: e.target.value })} 
-          required/>
+        <Button
+        size="lg"
+        onClick={() => router.push('/auth/signup')}
+        className="bg-primary hover:bg-primary/90 text-primary-foreground">
+          Get started
+        </Button>
+
+        <Button
+        size="lg"
+        variant="outline"
+        className="border-border bg-transparent"
+        onClick={() => router.push('/auth')}>
+          Sign in
+        </Button>
+
+      </Section>
+
+      <Section header="Everything you need to close more deals" 
+      description="Deals, contacts, and notes in a clean, fast interface. No clutter—just what matters." >
+
+        <div className="flex flex-col items-center gap-6">
+
+          <Cards items={cardData} />
+
+          <div className="mt-12 text-center">
+            <Button
+            size="lg"
+            onClick={() => router.push('/auth/signup')}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                Create Account
+            </Button>
+          </div>
 
         </div>
 
-        <Button className="w-full" type='submit'>Login</Button>
-
-      </form>
- 
-    </AuthLayout>
-
-  )
+      </Section>
+  
+    </div>
+  );
 }
