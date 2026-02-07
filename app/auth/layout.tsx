@@ -1,5 +1,4 @@
 import AuthLayout from "@/features/auth/components/auth-layout"
-import Footer from "@/features/footer/components/footer"
 
 export default function AuthPageLayout({
   children,
@@ -13,7 +12,6 @@ export default function AuthPageLayout({
         <AuthLayout title="Customer Relationship Management" description="Manager your Deals, Save you contact, and Capture notes">
           {children}
         </AuthLayout>
-        <Footer />
       </main>
     </div>
   )
