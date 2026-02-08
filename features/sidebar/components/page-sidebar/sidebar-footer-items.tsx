@@ -1,4 +1,4 @@
-import { SidebarFooterItemsProps } from '@/components/types/sidebarProps'
+import { SidebarFooterItemsProps } from '@/features/sidebar/types/sidebarProps'
 import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar'
 import Icon from '../icon'
 
@@ -8,7 +8,7 @@ const SidebarFooterItems = ({ items, className, ...props } : SidebarFooterItemsP
         <SidebarGroup {...props} className={`group-data-[collapsible=icon]:p-0 ${className || ''}`}>
                 <SidebarGroupContent>
                     <SidebarMenu>
-                        {items.map((item) => (
+                        {items?.map((item) => (
                             <SidebarMenuItem key={item.title}>
                                 <SidebarMenuButton
                                     asChild

@@ -1,9 +1,9 @@
 "use client";
 
-import PageSidebar from "@/components/custom/page-sidebar"
+import PageSidebar from "@/features/sidebar/components/page-sidebar"
 import Footer from "@/features/footer/components/footer"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-import sidebarItems from "@/components/types/sidebarProps"
+import sidebarItems from "@/features/sidebar/types/sidebarProps"
 
 export default function PageLayout({
   children,

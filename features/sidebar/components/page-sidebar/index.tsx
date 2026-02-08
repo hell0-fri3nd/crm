@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/sidebar"
 import Link from "next/link"
 import AppLogo from "../app-logo"
-import { SidebarGroupProps } from "@/components/types/sidebarProps"
+import { SidebarGroupProps } from "@/features/sidebar/types/sidebarProps"
 import SidebarGroupItems from "./sidebar-group-items"
 import SidebarUser from "./sidebar-user"
 
