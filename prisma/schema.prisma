@@ -1,0 +1,89 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Users {
+  id            Int       @id @default(autoincrement())
+  userId        String    @unique @db.VarChar(20)
+  email         String    @unique @db.VarChar(254)
+  firstName     String    @db.VarChar(50)
+  lastName      String    @db.VarChar(50)
+  passwordHash  String    @db.Char(64)
+  createdAt     DateTime  @default(now()) @db.Timestamptz
+
+  contacts      Contacts[]
+  deals         Deals[]
+  notes         Notes[]     
+
+  @@map("users")
+}
+
+model Contacts {
+  id         Int      @id @default(autoincrement())
+  contactId  String   @unique @db.VarChar(30)
+  userId     String   @db.VarChar(30)
+  name       String   @db.VarChar(100)
+  company    String?  @db.VarChar(100)
+  email      String   @db.VarChar(254)
+  phone      String?  @db.VarChar(30)
+  country    String?  @db.VarChar(50)
+  address    String?
+  createdAt  DateTime @default(now()) @db.Timestamptz
+
+  user       Users     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  deals      Deals[]
+
+  @@index([userId])
+  @@index([contactId])
+  @@index([createdAt])
+  @@map("contacts")
+}
+
+model Deals {
+  id          Int       @id @default(autoincrement())
+  dealId      String    @db.VarChar(30)
+  userId      String    @unique @db.VarChar(30)
+  contactId   String    @db.VarChar(30)
+  title       String?   @db.VarChar(100)
+  description String?
+  activity    String?   @db.VarChar(30)
+  createdAt   DateTime  @default(now()) @db.Timestamptz
+  updatedAt   DateTime? @unique @db.Timestamptz
+
+  user        Users     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  contact     Contacts  @relation(fields: [contactId], references: [contactId])
+
+  @@index([userId])
+  @@index([contactId])
+  @@index([createdAt])
+  @@map("deals")
+}
+
+model Notes {
+  id          Int      @id @default(autoincrement())
+  noteId      String   @unique @db.VarChar(30)
+  userId      String   @db.VarChar(30)
+  generalId   String   @db.VarChar(30)
+  type        String   @db.VarChar(30)
+  description String?
+  createdAt   DateTime @default(now()) @db.Timestamptz
+
+  user        Users     @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([generalId])
+  @@index([type, generalId])
+  @@index([createdAt])
+  @@map("notes")
+}
