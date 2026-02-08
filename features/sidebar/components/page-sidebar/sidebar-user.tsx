@@ -2,7 +2,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/compon
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { useIsMobile } from '@/lib/hooks/use-mobile';
 import { ChevronsUpDown } from 'lucide-react';
-import React from 'react'
 import UserInfo from '../user/user-info';
 import UserMenuContent from '../user/user-menu-content';
 
